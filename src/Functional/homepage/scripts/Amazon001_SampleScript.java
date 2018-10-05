@@ -23,7 +23,7 @@ public class Amazon001_SampleScript extends DriverScript{
 		System.out.println("Gowtham");
 		System.out.println(driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
-		smple = new Sample();
+		
 		 homepage = new HomePage(driver);
 		 
 		homepage.clickAnyElementInHomePage("lnkShopBy");

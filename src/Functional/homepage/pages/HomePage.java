@@ -5,19 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import Functional.homepage.pageobjects.HomePageObjects;
+import ReusableLibrary.DriverScript;
 import ReusableLibrary.Initialization;
 
-public class HomePage extends Initialization {
-	public HomePage() {
-		
-		
-		//driver.
-
-	}
+public class HomePage extends DriverScript {
 
 	// TODO - this class can be deleted and recreated from the Object View
 
 	public HomePage(WebDriver driver) {
+		super(driver);
+
 		// TODO Auto-generated constructor stub
 		System.out.println(driver.getTitle());
 		System.out.println(driver.getWindowHandle());
@@ -80,25 +77,29 @@ public class HomePage extends Initialization {
 			return null;
 		}
 	}
-	public void clickAnyElementInHomePage(String ShopBydepartmentElement)
-	{
-		//System.out.println(HomePageObjects.valueOf(ShopBydepartmentElement));
-		WebElement elment =getPageElement(HomePageObjects.lnkShopBy);
+
+	public void clickAnyElementInHomePage(String ShopBydepartmentElement) {
+		// System.out.println(HomePageObjects.valueOf(ShopBydepartmentElement));
+		WebElement elment = getPageElement(HomePageObjects.lnkShopBy);
 		try {
-			WebElement e1 = driver.findElement(By.xpath("//span[contains(text(),'Shop by')]"));
+			WebElement e1 = driver.findElement(By
+					.xpath("//span[contains(text(),'Shop by')]"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println(e.toString());
 		}
-		if(elment.isDisplayed())
-		{
+		if (elment.isDisplayed()) {
 			elment.click();
-		}
-		else
-		{
+		} else {
 			System.out.println("Element not clickable");
 		}
-		//getPageElement(HomePageObjects.valueOf(ShopBydepartmentElement)).click();
+		// getPageElement(HomePageObjects.valueOf(ShopBydepartmentElement)).click();
+	}
+
+	@Override
+	protected void executeTestCase() {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -7,10 +7,17 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public abstract class DriverScript extends Initialization {
+public abstract class DriverScript  {
+	
+	public WebDriver driver = null;
 
-	public DriverScript() {
+	public DriverScript(WebDriver driver) {
+		this.driver=driver;
 
+	}
+	public DriverScript()
+	{
+		
 	}
 
 	private void setRelativePath() {
@@ -23,7 +30,7 @@ public abstract class DriverScript extends Initialization {
 	}
 
 	public void driveTestExecution() {
-		initializeWebDriver();
+		driver =initializeWebDriver();
 		// initializeTestIterations();
 		initializeTestReport();
 		// if(testParameters.getCurrentTestcase().contains("_M"))
@@ -36,12 +43,13 @@ public abstract class DriverScript extends Initialization {
 		wrapUp();
 	}
 
-	private void initializeWebDriver() {
+	private WebDriver initializeWebDriver() {
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Selenium\\drivers\\chrome\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		return driver;
 
 	}
 
