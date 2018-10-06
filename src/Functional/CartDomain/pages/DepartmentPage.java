@@ -19,7 +19,7 @@ public class DepartmentPage extends DriverScript {
 	public DepartmentPage(WebDriver driver, ExtentTest Logger) {
 		super(driver);
 		this.logger = Logger;
-		logger.log(LogStatus.INFO, "HomePage Loaded");
+		logger.log(LogStatus.INFO, "Department Page Loaded");
 
 	}
 

@@ -22,7 +22,7 @@ public class CartPage extends DriverScript {
 	public CartPage(WebDriver driver, ExtentTest Logger) {
 		super(driver);
 		this.logger = Logger;
-		logger.log(LogStatus.INFO, "HomePage Loaded");
+		logger.log(LogStatus.INFO, "Cart Page Loaded");
 
 	}
 
