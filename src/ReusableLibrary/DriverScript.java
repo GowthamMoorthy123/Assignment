@@ -34,22 +34,18 @@ public abstract class DriverScript {
 	}
 
 	public void driveTestExecution() {
-		driver = initializeWebDriver();
-		// initializeTestIterations();
+		driver = initializeWebDriver();		
 		logger = initializeTestReport();
-		// if(testParameters.getCurrentTestcase().contains("_M"))
-		// report.bMergedTC = true;
-
 		setUp();
 		executeTestCase(logger);
-
 		quitWebDriver();
 		wrapUp();
 	}
 
 	private WebDriver initializeWebDriver() {
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Selenium\\drivers\\chrome\\chromedriver.exe");
+		/*System.setProperty("webdriver.chrome.driver",
+				"C:\\Selenium\\drivers\\chrome\\chromedriver.exe");*/
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/Drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 
@@ -75,12 +71,6 @@ public abstract class DriverScript {
 				+ "/test-output/ExtentReport/ExtReport.html", true);
 		logger = extent.startTest("Amazon Testcase");
 		return logger;
-
-		/*
-		 * extent.addSystemInfo("Host Name", "Amazon.CA"); extent.loadConfig(new
-		 * File(System.getProperty("user.dir") + "\\extent-config.xml"));
-		 */
-
 	}
 
 	public void setUp() {
