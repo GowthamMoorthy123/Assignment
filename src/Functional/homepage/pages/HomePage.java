@@ -14,9 +14,10 @@ import ReusableLibrary.Initialization;
 public class HomePage extends DriverScript {
 
 	// TODO - this class can be deleted and recreated from the Object View
-
-	public HomePage(WebDriver driver) {
+ExtentTest Logger;
+	public HomePage(WebDriver driver,ExtentTest Logger) {
 		super(driver);
+		this.logger=Logger;
 //logger.log(LogStatus.INFO, "Home page loaded");
 	//	reportNGInfo("INFO","Home Page Loaded");
 		// TODO Auto-generated constructor stub
@@ -82,7 +83,7 @@ public class HomePage extends DriverScript {
 	}
 
 	@Override
-	protected void executeTestCase() {
+	protected void executeTestCase(ExtentTest log) {
 		// TODO Auto-generated method stub
 
 	}

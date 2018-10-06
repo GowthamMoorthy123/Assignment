@@ -2,6 +2,7 @@ package Functional.homepage.scripts;
 
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import Functional.homepage.pages.HomePage;
@@ -18,10 +19,10 @@ public class Amazon001_SampleScript extends DriverScript {
 	}
 
 	@Override
-	protected void executeTestCase() {
+	protected void executeTestCase(ExtentTest logger) {
 		// TODO Auto-generated method stub
-		homepage = new HomePage(driver);
-		// logger.log(LogStatus.INFO, "HomePage Loaded");
+		homepage = new HomePage(driver,logger);
+		logger.log(LogStatus.INFO, "HomePage Loaded");
 
 		homepage.clickShopByCategoryInHomePage();
 

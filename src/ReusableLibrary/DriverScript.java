@@ -15,7 +15,7 @@ import com.relevantcodes.extentreports.LogStatus;
 public abstract class DriverScript {
 
 	public WebDriver driver = null;
-	public ExtentReports extent;
+	public ExtentReports extent =null;
 	public ExtentTest logger = null;
 
 	public DriverScript(WebDriver driver) {
@@ -30,21 +30,19 @@ public abstract class DriverScript {
 	private void setRelativePath() {
 		String relativePath = new File(System.getProperty("user.dir"))
 				.getAbsolutePath();
-		if (relativePath.contains("allocator")) {
-			relativePath = new File(System.getProperty("user.dir")).getParent();
-		}
+		
 
 	}
 
 	public void driveTestExecution() {
 		driver = initializeWebDriver();
 		// initializeTestIterations();
-		initializeTestReport();
+	logger=	initializeTestReport();
 		// if(testParameters.getCurrentTestcase().contains("_M"))
 		// report.bMergedTC = true;
 
 		setUp();
-		executeTestCase();
+		executeTestCase(logger);
 
 		quitWebDriver();
 		wrapUp();
@@ -61,7 +59,7 @@ public abstract class DriverScript {
 
 	}
 
-	public void initializeTestReport() {
+	public ExtentTest initializeTestReport() {
 
 		System.out.println(System.getProperty("user.dir"));
 
@@ -77,6 +75,8 @@ public abstract class DriverScript {
 		extent = new ExtentReports(System.getProperty("user.dir")
 				+ "/test-output/ExtentReport/ExtReport.html",
 				true);	
+	logger=	extent.startTest("Amazon Testcase");
+	return logger;
 		
 		/*extent.addSystemInfo("Host Name", "Amazon.CA");
 		extent.loadConfig(new File(System.getProperty("user.dir")
@@ -88,7 +88,7 @@ public abstract class DriverScript {
 		driver.get("https://www.amazon.ca/");
 	}
 
-	protected abstract void executeTestCase();
+	protected abstract void executeTestCase(ExtentTest log);
 
 	public void quitWebDriver() {
 		driver.manage().deleteAllCookies();
