@@ -1,4 +1,4 @@
-package Functional.homepage.pageobjects;
+package Functional.CartDomain.pageobjects;
 
 import static pageobjects.ObjectLocator.CLASS;
 import static pageobjects.ObjectLocator.CSS;
@@ -9,19 +9,19 @@ import pageobjects.ObjectLocator;
 
 public enum HomePageObjects {
 	lnkShopBy("//span[contains(text(),'Shop by')]", XPATH);
-	//txtPassword("password", ID);
+	// txtPassword("password", ID);
 	String strProperty = "";
 	ObjectLocator locatorType = null;
 
-	public String getProperty(){
+	public String getProperty() {
 		return strProperty;
 	}
 
-	public ObjectLocator getLocatorType(){
+	public ObjectLocator getLocatorType() {
 		return locatorType;
 	}
 
-	private HomePageObjects(String strPropertyValue, ObjectLocator locatorType){
+	private HomePageObjects(String strPropertyValue, ObjectLocator locatorType) {
 		this.strProperty = strPropertyValue;
 		this.locatorType = locatorType;
 	}
