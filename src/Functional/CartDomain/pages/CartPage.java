@@ -1,4 +1,4 @@
-package Functional.homepage.pages;
+package Functional.CartDomain.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +7,11 @@ import org.openqa.selenium.WebElement;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-import Functional.homepage.pageobjects.CartPageObjects;
-import Functional.homepage.pageobjects.DepartmentPageObjects;
-import Functional.homepage.pageobjects.HomePageObjects;
+import Functional.CartDomain.pageobjects.CartPageObjects;
+import Functional.CartDomain.pageobjects.DepartmentPageObjects;
+import Functional.CartDomain.pageobjects.HomePageObjects;
 import ReusableLibrary.DriverScript;
-import ReusableLibrary.Initialization;
+
 import org.openqa.selenium.support.ui.Select;
 
 public class CartPage extends DriverScript {

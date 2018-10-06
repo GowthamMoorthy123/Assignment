@@ -1,4 +1,4 @@
-package Functional.homepage.pageobjects;
+package Functional.CartDomain.pageobjects;
 
 import static pageobjects.ObjectLocator.CLASS;
 import static pageobjects.ObjectLocator.CSS;

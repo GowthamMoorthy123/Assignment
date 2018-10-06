@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="112112" started-at="2018-10-06T10:14:07Z" finished-at="2018-10-06T10:15:59Z">
+  <suite name="Default suite" duration-ms="139183" started-at="2018-10-06T11:31:46Z" finished-at="2018-10-06T11:34:05Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="112112" started-at="2018-10-06T10:14:07Z" finished-at="2018-10-06T10:15:59Z">
-      <class name="Functional.homepage.scripts.Amazon001_SampleScript">
-        <test-method status="PASS" signature="runTest()[pri:0, instance:Functional.homepage.scripts.Amazon001_SampleScript@c267ef4]" name="runTest" duration-ms="112048" started-at="2018-10-06T15:44:07Z" finished-at="2018-10-06T15:45:59Z">
+    <test name="Default test" duration-ms="139183" started-at="2018-10-06T11:31:46Z" finished-at="2018-10-06T11:34:05Z">
+      <class name="Functional.CartDomain.scripts.Amazon001_SampleScript">
+        <test-method status="PASS" signature="runTest()[pri:0, instance:Functional.CartDomain.scripts.Amazon001_SampleScript@c267ef4]" name="runTest" duration-ms="139120" started-at="2018-10-06T17:01:46Z" finished-at="2018-10-06T17:04:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runTest -->
-      </class> <!-- Functional.homepage.scripts.Amazon001_SampleScript -->
+      </class> <!-- Functional.CartDomain.scripts.Amazon001_SampleScript -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -23,7 +23,7 @@ public class Amazon001_SampleScript extends DriverScript {
 
 	@Override
 	protected void executeTestCase(ExtentTest logger) {
-		// TODO Auto-generated method stub
+
 		homepage = new HomePage(driver, logger);
 		homepage.clickShopByCategoryInHomePage();
 		departmentpage = new DepartmentPage(driver, logger);
@@ -32,7 +32,6 @@ public class Amazon001_SampleScript extends DriverScript {
 		cartpage.selectQuantity("2");
 		cartpage.clickAddToCartBtn();
 		cartpage.clickAddToOrder();
-		
 
 	}
 

@@ -15,7 +15,7 @@ import com.relevantcodes.extentreports.LogStatus;
 public abstract class DriverScript {
 
 	public WebDriver driver = null;
-	public ExtentReports extent =null;
+	public ExtentReports extent = null;
 	public ExtentTest logger = null;
 
 	public DriverScript(WebDriver driver) {
@@ -30,14 +30,13 @@ public abstract class DriverScript {
 	private void setRelativePath() {
 		String relativePath = new File(System.getProperty("user.dir"))
 				.getAbsolutePath();
-		
 
 	}
 
 	public void driveTestExecution() {
 		driver = initializeWebDriver();
 		// initializeTestIterations();
-	logger=	initializeTestReport();
+		logger = initializeTestReport();
 		// if(testParameters.getCurrentTestcase().contains("_M"))
 		// report.bMergedTC = true;
 
@@ -73,14 +72,14 @@ public abstract class DriverScript {
 		String timestamp = ts.toString();
 
 		extent = new ExtentReports(System.getProperty("user.dir")
-				+ "/test-output/ExtentReport/ExtReport.html",
-				true);	
-	logger=	extent.startTest("Amazon Testcase");
-	return logger;
-		
-		/*extent.addSystemInfo("Host Name", "Amazon.CA");
-		extent.loadConfig(new File(System.getProperty("user.dir")
-				+ "\\extent-config.xml"));*/
+				+ "/test-output/ExtentReport/ExtReport.html", true);
+		logger = extent.startTest("Amazon Testcase");
+		return logger;
+
+		/*
+		 * extent.addSystemInfo("Host Name", "Amazon.CA"); extent.loadConfig(new
+		 * File(System.getProperty("user.dir") + "\\extent-config.xml"));
+		 */
 
 	}
 
@@ -101,17 +100,5 @@ public abstract class DriverScript {
 		extent.close();
 
 	}
-	
-	/**
-	 * Reports out based on the given verification point parameters. Elements
-	 * are processed to be formatted with the Report sequence.
-	 * @param expected
-	 * @param status
-	 * @param msg
-	 */
-	public void reportNGInfo(String expected,String msg){
-		
-		logger.log(LogStatus.INFO, msg);
-		
-	}
+
 }

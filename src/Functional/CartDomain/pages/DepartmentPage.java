@@ -1,4 +1,4 @@
-package Functional.homepage.pages;
+package Functional.CartDomain.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,10 +7,9 @@ import org.openqa.selenium.WebElement;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-import Functional.homepage.pageobjects.DepartmentPageObjects;
-import Functional.homepage.pageobjects.HomePageObjects;
+import Functional.CartDomain.pageobjects.DepartmentPageObjects;
+
 import ReusableLibrary.DriverScript;
-import ReusableLibrary.Initialization;
 
 public class DepartmentPage extends DriverScript {
 
@@ -26,8 +25,8 @@ public class DepartmentPage extends DriverScript {
 
 	private WebElement getPageElement(DepartmentPageObjects PageEnum) {
 		try {
-			return getElementByProperty(PageEnum.getProperty(),
-					PageEnum.getLocatorType().toString());
+			return getElementByProperty(PageEnum.getProperty(), PageEnum
+					.getLocatorType().toString());
 
 		} catch (Exception e) {
 			logger.log(LogStatus.FAIL, "Element not found in DOM");
@@ -71,7 +70,7 @@ public class DepartmentPage extends DriverScript {
 	}
 
 	public void clickKindleLinkInDepartmentPage() {
-		//System.out.println(HomePageObjects.valueOf(ShopBydepartmentElement));
+		// System.out.println(HomePageObjects.valueOf(ShopBydepartmentElement));
 		WebElement elment = getPageElement(DepartmentPageObjects.lnkKindle);
 		if (elment.isDisplayed()) {
 			elment.click();

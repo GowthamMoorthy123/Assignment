@@ -9,7 +9,6 @@ import com.relevantcodes.extentreports.LogStatus;
 
 import Functional.CartDomain.pageobjects.HomePageObjects;
 import ReusableLibrary.DriverScript;
-import ReusableLibrary.Initialization;
 
 public class HomePage extends DriverScript {
 
@@ -84,7 +83,6 @@ public class HomePage extends DriverScript {
 
 	@Override
 	protected void executeTestCase(ExtentTest log) {
-		// TODO Auto-generated method stub
 
 	}
 }
