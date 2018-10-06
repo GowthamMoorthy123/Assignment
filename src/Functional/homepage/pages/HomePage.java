@@ -15,8 +15,8 @@ public class HomePage extends DriverScript {
 
 	// TODO - this class can be deleted and recreated from the Object View
 
-	public HomePage(WebDriver driver, ExtentTest logger) {
-		super(driver,logger);
+	public HomePage(WebDriver driver) {
+		super(driver);
 //logger.log(LogStatus.INFO, "Home page loaded");
 	//	reportNGInfo("INFO","Home Page Loaded");
 		// TODO Auto-generated constructor stub

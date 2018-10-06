@@ -18,10 +18,8 @@ public abstract class DriverScript {
 	public ExtentReports extent;
 	public ExtentTest logger = null;
 
-	public DriverScript(WebDriver driver, ExtentTest logger) {
+	public DriverScript(WebDriver driver) {
 		this.driver = driver;
-		this.logger = logger;
-		
 
 	}
 
