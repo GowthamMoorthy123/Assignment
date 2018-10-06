@@ -1,23 +1,32 @@
 package ReusableLibrary;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public abstract class DriverScript  {
-	
-	public WebDriver driver = null;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
-	public DriverScript(WebDriver driver) {
-		this.driver=driver;
+public abstract class DriverScript {
+
+	public WebDriver driver = null;
+	public ExtentReports extent;
+	public ExtentTest logger = null;
+
+	public DriverScript(WebDriver driver, ExtentTest logger) {
+		this.driver = driver;
+		this.logger = logger;
+		
 
 	}
-	public DriverScript()
-	{
-		
+
+	public DriverScript() {
+
 	}
 
 	private void setRelativePath() {
@@ -30,7 +39,7 @@ public abstract class DriverScript  {
 	}
 
 	public void driveTestExecution() {
-		driver =initializeWebDriver();
+		driver = initializeWebDriver();
 		// initializeTestIterations();
 		initializeTestReport();
 		// if(testParameters.getCurrentTestcase().contains("_M"))
@@ -48,12 +57,32 @@ public abstract class DriverScript  {
 				"C:\\Selenium\\drivers\\chrome\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return driver;
 
 	}
 
-	private void initializeTestReport() {
+	public void initializeTestReport() {
+
+		System.out.println(System.getProperty("user.dir"));
+
+		Date date = new Date();
+
+		long time = date.getTime();
+		System.out.println("Time in Milliseconds: " + time);
+
+		Timestamp ts = new Timestamp(time);
+		System.out.println("Current Time Stamp: " + ts);
+		String timestamp = ts.toString();
+
+		extent = new ExtentReports(System.getProperty("user.dir")
+				+ "/test-output/ExtentReport/ExtReport.html",
+				true);	
+		
+		/*extent.addSystemInfo("Host Name", "Amazon.CA");
+		extent.loadConfig(new File(System.getProperty("user.dir")
+				+ "\\extent-config.xml"));*/
 
 	}
 
@@ -63,12 +92,28 @@ public abstract class DriverScript  {
 
 	protected abstract void executeTestCase();
 
-	private void quitWebDriver() {
+	public void quitWebDriver() {
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 
-	private void wrapUp() {
+	public void wrapUp() {
+		extent.endTest(logger);
+		extent.flush();
+		extent.close();
 
+	}
+	
+	/**
+	 * Reports out based on the given verification point parameters. Elements
+	 * are processed to be formatted with the Report sequence.
+	 * @param expected
+	 * @param status
+	 * @param msg
+	 */
+	public void reportNGInfo(String expected,String msg){
+		
+		logger.log(LogStatus.INFO, msg);
+		
 	}
 }

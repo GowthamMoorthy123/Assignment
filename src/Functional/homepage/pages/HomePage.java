@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import Functional.homepage.pageobjects.HomePageObjects;
 import ReusableLibrary.DriverScript;
 import ReusableLibrary.Initialization;
@@ -12,24 +15,21 @@ public class HomePage extends DriverScript {
 
 	// TODO - this class can be deleted and recreated from the Object View
 
-	public HomePage(WebDriver driver) {
-		super(driver);
-
+	public HomePage(WebDriver driver, ExtentTest logger) {
+		super(driver,logger);
+//logger.log(LogStatus.INFO, "Home page loaded");
+	//	reportNGInfo("INFO","Home Page Loaded");
 		// TODO Auto-generated constructor stub
-		System.out.println(driver.getTitle());
-		System.out.println(driver.getWindowHandle());
+		
 	}
 
 	private WebElement getPageElement(HomePageObjects HomePageEnum) {
 		try {
 			return getElementByProperty(HomePageEnum.getProperty(),
 					HomePageEnum.getLocatorType().toString());
+			
 		} catch (Exception e) {
-			/*
-			 * report.updateTestLog("Login Page - get page element",
-			 * loginPageEnum.toString() + " object is not defined or found.",
-			 * Status.FAIL);
-			 */
+			logger.log(LogStatus.FAIL, "Element not found in DOM");
 			return null;
 		}
 	}
@@ -58,41 +58,25 @@ public class HomePage extends DriverScript {
 			else
 				return null;
 		} catch (org.openqa.selenium.NoSuchElementException nsee) {
-			/*
-			 * report.updateTestLog("Verify if " + strFindElementType + " - " +
-			 * strObjectProperty + " is present", "Element with property " +
-			 * strFindElementType + " - " + strObjectProperty + " not found",
-			 * Status.FAIL);
-			 */
+			logger.log(LogStatus.FAIL, "Element not found");
 			return null;
 		}
 
 		catch (Exception e) {
-			/*
-			 * report.updateTestLog("Verify if " + strFindElementType + " - " +
-			 * strObjectProperty + " is present", "Element with property " +
-			 * strFindElementType + " - " + strObjectProperty + " not found",
-			 * Status.FAIL);
-			 */
+			logger.log(LogStatus.FAIL, "Element not found");
 			return null;
+			
 		}
 	}
 
-	public void clickAnyElementInHomePage(String ShopBydepartmentElement) {
+	public void clickShopByCategoryInHomePage() {
 		// System.out.println(HomePageObjects.valueOf(ShopBydepartmentElement));
 		WebElement elment = getPageElement(HomePageObjects.lnkShopBy);
-		try {
-			WebElement e1 = driver.findElement(By
-					.xpath("//span[contains(text(),'Shop by')]"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			System.out.println(e.toString());
-		}
 		if (elment.isDisplayed()) {
 			elment.click();
+			logger.log(LogStatus.PASS, "Link Shop by category found and clicked");
 		} else {
-			System.out.println("Element not clickable");
+			logger.log(LogStatus.FAIL, "Link Shop by category not found");
 		}
 		// getPageElement(HomePageObjects.valueOf(ShopBydepartmentElement)).click();
 	}
