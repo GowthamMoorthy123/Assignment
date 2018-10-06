@@ -1,8 +1,12 @@
 package ReusableLibrary;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -34,7 +38,7 @@ public abstract class DriverScript {
 	}
 
 	public void driveTestExecution() {
-		driver = initializeWebDriver();		
+		driver = initializeWebDriver();
 		logger = initializeTestReport();
 		setUp();
 		executeTestCase(logger);
@@ -43,9 +47,9 @@ public abstract class DriverScript {
 	}
 
 	private WebDriver initializeWebDriver() {
-		/*System.setProperty("webdriver.chrome.driver",
-				"C:\\Selenium\\drivers\\chrome\\chromedriver.exe");*/
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/Drivers/chromedriver.exe");
+
+		System.setProperty("webdriver.chrome.driver",
+				System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 
@@ -74,7 +78,14 @@ public abstract class DriverScript {
 	}
 
 	public void setUp() {
-		driver.get("https://www.amazon.ca/");
+		String url;
+		try {
+			url = getValueFromProperyFile("URL");
+			driver.get(url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.log(LogStatus.WARNING, e.toString());
+		}
 	}
 
 	protected abstract void executeTestCase(ExtentTest log);
@@ -89,6 +100,24 @@ public abstract class DriverScript {
 		extent.flush();
 		extent.close();
 
+	}
+
+	public String getValueFromProperyFile(String Input) {
+		FileReader reader;
+		String value = null;
+		try {
+			reader = new FileReader(System.getProperty("user.dir")
+					+ "/PropertyFiles/CommonSettings.properties");
+			Properties p = new Properties();
+			p.load(reader);
+			value = p.getProperty(Input);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.log(LogStatus.WARNING, "No such input in properties file");
+
+		}
+		return value;
 	}
 
 }

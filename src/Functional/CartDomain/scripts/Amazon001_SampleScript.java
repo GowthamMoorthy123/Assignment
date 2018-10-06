@@ -23,7 +23,6 @@ public class Amazon001_SampleScript extends DriverScript {
 
 	@Override
 	protected void executeTestCase(ExtentTest logger) {
-
 		homepage = new HomePage(driver, logger);
 		homepage.clickShopByCategoryInHomePage();
 		departmentpage = new DepartmentPage(driver, logger);
