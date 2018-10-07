@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
@@ -11,7 +13,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.mongodb.diagnostics.logging.Logger;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -56,9 +62,11 @@ public abstract class DriverScript {
 		
 		switch(RunningMode){
 		case "Local":
-			System.setProperty("webdriver.chrome.driver",
+			
+		driver=	getDriver(getValueFromProperyFile("Browser"));
+			/*System.setProperty("webdriver.chrome.driver",
 					System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
-			driver = new ChromeDriver();
+			driver = new ChromeDriver();*/
 			driver.manage().window().maximize();
 
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -66,8 +74,19 @@ public abstract class DriverScript {
 		case "Grid":
 			if(getValueFromProperyFile("SauceLabsExecution").equalsIgnoreCase("true"))
 					{
+				String remoteURL = getValueFromProperyFile("SauceLabURL");
+				DesiredCapabilities capability = getCapabilities(getValueFromProperyFile("Browser"));
+				try {
+					driver= new RemoteWebDriver(new URL(remoteURL), capability);
+				} catch (MalformedURLException e) {
+					System.out.println(e.toString());
+					logger.log(LogStatus.ERROR, e.toString());
+				}
+				}
+			else
+			{
 				
-					}
+			}
 			
 			break;
 		default:
@@ -164,6 +183,30 @@ public abstract class DriverScript {
 				
 		}
 		return capabilities;
+	}
+	
+	public  WebDriver getDriver(String browser){
+		
+		switch(browser){
+			case "Chrome":				
+				System.setProperty("webdriver.chrome.driver",
+						System.getProperty("user.dir") + "/Drivers/chromedriver.exe");				
+				driver = new ChromeDriver();			
+				break;
+			case "IE":
+				System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
+				driver = new InternetExplorerDriver();
+				break;
+			
+			case "Firefox":
+				driver = new FirefoxDriver();
+				driver.manage().window().maximize();
+				break;
+			
+			default:
+				System.err.println("Currently an unsupported browser [" + browser + "] for driver execution.");
+		}
+		return driver;
 	}
 
 }
