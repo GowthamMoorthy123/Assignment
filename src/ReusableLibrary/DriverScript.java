@@ -26,9 +26,11 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public abstract class DriverScript {
 
+	
 	public WebDriver driver = null;
 	public ExtentReports extent = null;
 	public ExtentTest logger = null;
+	String reportFileName;
 
 	public DriverScript(WebDriver driver) {
 		this.driver = driver;
@@ -43,9 +45,9 @@ public abstract class DriverScript {
 		driver = initializeWebDriver();
 		logger = initializeTestReport();
 		setUp();
-		executeTestCase(logger);
-		quitWebDriver();
+		executeTestCase(logger);		
 		closingLogger();
+		quitWebDriver();
 	}
 
 	private WebDriver initializeWebDriver() {
@@ -108,12 +110,14 @@ public abstract class DriverScript {
 
 		Timestamp ts = new Timestamp(time);
 		System.out.println("Current Time Stamp: " + ts);
-		String timestamp = ts.toString();
+		String timestamp = ts.toString().replaceAll("[^0-9]","_");
 
 		extent = new ExtentReports(System.getProperty("user.dir")
-				+ "/test-output/ExtentReport/ExtReport.html", true);
+				+ "/test-output/ExtentReport/ExtReport"+timestamp+".html", true);
+		reportFileName=System.getProperty("user.dir")
+				+ "/test-output/ExtentReport/ExtReport"+timestamp+".html"; 
 		logger = extent.startTest("Amazon Testcase");
-
+		
 		return logger;
 	}
 
@@ -133,6 +137,7 @@ public abstract class DriverScript {
 
 	public void quitWebDriver() {
 		driver.manage().deleteAllCookies();
+		driver.get(reportFileName);
 		driver.quit();
 	}
 
@@ -148,7 +153,7 @@ public abstract class DriverScript {
 		String value = null;
 		try {
 			reader = new FileReader(System.getProperty("user.dir")
-					+ "/propertyFiles/CommonSettings.properties");
+					+ "/CommonSettings.properties");
 			Properties p = new Properties();
 			p.load(reader);
 			value = p.getProperty(Input);

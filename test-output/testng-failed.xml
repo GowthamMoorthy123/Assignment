@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="Functional.homepage.scripts.Amazon001_SampleScript">
+      <class name="Functional.CartDomain.scripts.Amazon001_SampleScript">
         <methods>
           <include name="runTest"/>
         </methods>
-      </class> <!-- Functional.homepage.scripts.Amazon001_SampleScript -->
+      </class> <!-- Functional.CartDomain.scripts.Amazon001_SampleScript -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
