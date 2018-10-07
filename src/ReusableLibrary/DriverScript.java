@@ -26,7 +26,6 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public abstract class DriverScript {
 
-
 	public WebDriver driver = null;
 	public ExtentReports extent = null;
 	public ExtentTest logger = null;
@@ -40,58 +39,52 @@ public abstract class DriverScript {
 
 	}
 
-	private void setRelativePath() {
-		String relativePath = new File(System.getProperty("user.dir"))
-				.getAbsolutePath();
-
-	}
-
 	public void driveTestExecution() {
 		driver = initializeWebDriver();
 		logger = initializeTestReport();
 		setUp();
 		executeTestCase(logger);
 		quitWebDriver();
-		wrapUp();
+		closingLogger();
 	}
 
 	private WebDriver initializeWebDriver() {
 		String RunningMode = null;
-		
-		RunningMode =getValueFromProperyFile("ExecutionMode");
-		
-		switch(RunningMode){
+
+		RunningMode = getValueFromProperyFile("ExecutionMode");
+
+		switch (RunningMode) {
 		case "Local":
-			
-		driver=	getDriver(getValueFromProperyFile("Browser"));
-			/*System.setProperty("webdriver.chrome.driver",
-					System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
-			driver = new ChromeDriver();*/
+
+			driver = getDriver(getValueFromProperyFile("Browser"));
+			/*
+			 * System.setProperty("webdriver.chrome.driver",
+			 * System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
+			 * driver = new ChromeDriver();
+			 */
 			driver.manage().window().maximize();
 
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			break;
 		case "Grid":
-			if(getValueFromProperyFile("SauceLabsExecution").equalsIgnoreCase("true"))
-					{
+			if (getValueFromProperyFile("SauceLabsExecution").equalsIgnoreCase(
+					"true")) {
 				String remoteURL = getValueFromProperyFile("SauceLabURL");
 				DesiredCapabilities capability = getCapabilities(getValueFromProperyFile("Browser"));
 				try {
-					driver= new RemoteWebDriver(new URL(remoteURL), capability);
+					driver = new RemoteWebDriver(new URL(remoteURL), capability);
 				} catch (MalformedURLException e) {
 					System.out.println(e.toString());
 					logger.log(LogStatus.ERROR, e.toString());
 				}
-				}
-			else
-			{
-				
+			} else {
+
 			}
-			
+
 			break;
 		default:
-			logger.log(LogStatus.ERROR, "Execution Mode Not selected properly")	;
-	}
+			logger.log(LogStatus.ERROR, "Execution Mode Not selected properly");
+		}
 
 		return driver;
 
@@ -113,7 +106,7 @@ public abstract class DriverScript {
 		extent = new ExtentReports(System.getProperty("user.dir")
 				+ "/test-output/ExtentReport/ExtReport.html", true);
 		logger = extent.startTest("Amazon Testcase");
-		
+
 		return logger;
 	}
 
@@ -123,9 +116,9 @@ public abstract class DriverScript {
 			url = getValueFromProperyFile("URL");
 			driver.get(url);
 		} catch (Exception e) {
-			
+
 			logger.log(LogStatus.WARNING, e.toString());
-			
+
 		}
 	}
 
@@ -136,7 +129,7 @@ public abstract class DriverScript {
 		driver.quit();
 	}
 
-	public void wrapUp() {
+	public void closingLogger() {
 		extent.endTest(logger);
 		extent.flush();
 		extent.close();
@@ -160,51 +153,55 @@ public abstract class DriverScript {
 		}
 		return value;
 	}
-	
-	public  DesiredCapabilities getCapabilities(String browser){
-		DesiredCapabilities capabilities = null;
-		switch(browser){
-			case "CHROME":
-				capabilities = DesiredCapabilities.chrome();
-				capabilities.setBrowserName("chrome");
-				break;
 
-			case "FIREFOX":
-				capabilities = DesiredCapabilities.firefox();
-				capabilities.setBrowserName("firefox");
-				break;
-			
-			case "IE":
-				capabilities = DesiredCapabilities.internetExplorer();
-				capabilities.setCapability("browserName", "internet explorer");				
-				break;
-			default:
-				logger.log(LogStatus.ERROR, "Select correct Browser");
-				
+	public DesiredCapabilities getCapabilities(String browser) {
+		DesiredCapabilities capabilities = null;
+		switch (browser) {
+		case "CHROME":
+			capabilities = DesiredCapabilities.chrome();
+			capabilities.setBrowserName("chrome");
+			break;
+
+		case "FIREFOX":
+			capabilities = DesiredCapabilities.firefox();
+			capabilities.setBrowserName("firefox");
+			break;
+
+		case "IE":
+			capabilities = DesiredCapabilities.internetExplorer();
+			capabilities.setCapability("browserName", "internet explorer");
+			break;
+		default:
+			logger.log(LogStatus.ERROR, "Select correct Browser");
+
 		}
 		return capabilities;
 	}
-	
-	public  WebDriver getDriver(String browser){
-		
-		switch(browser){
-			case "Chrome":				
-				System.setProperty("webdriver.chrome.driver",
-						System.getProperty("user.dir") + "/Drivers/chromedriver.exe");				
-				driver = new ChromeDriver();			
-				break;
-			case "IE":
-				System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
-				driver = new InternetExplorerDriver();
-				break;
-			
-			case "Firefox":
-				driver = new FirefoxDriver();
-				driver.manage().window().maximize();
-				break;
-			
-			default:
-				System.err.println("Currently an unsupported browser [" + browser + "] for driver execution.");
+
+	public WebDriver getDriver(String browser) {
+
+		switch (browser) {
+		case "Chrome":
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir")
+							+ "/Drivers/chromedriver.exe");
+			driver = new ChromeDriver();
+			break;
+		case "IE":
+			System.setProperty("webdriver.ie.driver",
+					System.getProperty("user.dir")
+							+ "/Drivers/IEDriverServer.exe");
+			driver = new InternetExplorerDriver();
+			break;
+
+		case "Firefox":
+			driver = new FirefoxDriver();
+			driver.manage().window().maximize();
+			break;
+
+		default:
+			System.err.println("Currently an unsupported browser [" + browser
+					+ "] for driver execution.");
 		}
 		return driver;
 	}
