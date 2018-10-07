@@ -32,7 +32,8 @@ public class Amazon001_SampleScript extends DriverScript {
 		cartpage = new CartPage(driver, logger);
 		cartpage.selectQuantity("2");
 		cartpage.clickAddToCartBtn();
-		cartpage.clickAddToOrder();
+		cartpage.cickExitPopUpFromSuggestedProducts();
+		//cartpage.clickAddToOrder();
 		cartpage.clickProceedToCheckout();
 		cartpage.verifySecureLoginPage();
 

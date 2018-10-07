@@ -124,7 +124,7 @@ public class CartPage extends DriverScript {
 		}
 
 	}
-	
+
 	public void verifySecureLoginPage() {
 
 		WebElement elment = getPageElement(CartPageObjects.lblEmailAddressAndPhoneNumber);
@@ -132,9 +132,21 @@ public class CartPage extends DriverScript {
 			logger.log(LogStatus.PASS,
 					"Page navigated to secure login page asking for Email or Phome number");
 		} else {
-			logger.log(LogStatus.FAIL, "Page not navigated to secure login page asking for Email or Phome number");
+			logger.log(LogStatus.FAIL,
+					"Page not navigated to secure login page asking for Email or Phome number");
 		}
 
+	}
+
+	public void cickExitPopUpFromSuggestedProducts() {
+		WebElement elment = getPageElement(CartPageObjects.popUpClose);
+		if (elment.isDisplayed()) {
+			elment.click();
+			logger.log(LogStatus.PASS, "Pop up close link found and clicked");
+		} else {
+			logger.log(LogStatus.FAIL, "Pop up close link not found");
+
+		}
 	}
 
 	@Override
