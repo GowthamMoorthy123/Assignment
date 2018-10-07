@@ -11,12 +11,11 @@ import Functional.CartDomain.pages.HomePage;
 
 import ReusableLibrary.DriverScript;
 
-@Listeners (Helper.listeners.class)
+@Listeners(Helper.listeners.class)
 public class Amazon001_SampleScript extends DriverScript {
 	HomePage homepage;
 	DepartmentPage departmentpage;
 	CartPage cartpage;
-
 
 	@Test
 	public void runTest() {
@@ -34,6 +33,8 @@ public class Amazon001_SampleScript extends DriverScript {
 		cartpage.selectQuantity("2");
 		cartpage.clickAddToCartBtn();
 		cartpage.clickAddToOrder();
+		cartpage.clickProceedToCheckout();
+		cartpage.verifySecureLoginPage();
 
 	}
 

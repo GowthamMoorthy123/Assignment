@@ -97,17 +97,42 @@ public class CartPage extends DriverScript {
 		} else {
 			logger.log(LogStatus.FAIL, "Dropdown not found");
 		}
-		// getPageElement(HomePageObjects.valueOf(ShopBydepartmentElement)).click();
+
 	}
 
 	public void clickAddToOrder() {
-		// System.out.println(HomePageObjects.valueOf(ShopBydepartmentElement));
+
 		WebElement elment = getPageElement(CartPageObjects.lnkAddToOrder);
 		if (elment.isDisplayed()) {
 			elment.click();
 			logger.log(LogStatus.PASS, "Add to order link found and clicked");
 		} else {
 			logger.log(LogStatus.FAIL, "Add to order link not found");
+		}
+
+	}
+
+	public void clickProceedToCheckout() {
+
+		WebElement elment = getPageElement(CartPageObjects.proceedToCheckout);
+		if (elment.isDisplayed()) {
+			elment.click();
+			logger.log(LogStatus.PASS,
+					"Proceed to checkout link found and clicked");
+		} else {
+			logger.log(LogStatus.FAIL, "Proceed to checkout link not found");
+		}
+
+	}
+	
+	public void verifySecureLoginPage() {
+
+		WebElement elment = getPageElement(CartPageObjects.lblEmailAddressAndPhoneNumber);
+		if (elment.isDisplayed()) {
+			logger.log(LogStatus.PASS,
+					"Page navigated to secure login page asking for Email or Phome number");
+		} else {
+			logger.log(LogStatus.FAIL, "Page not navigated to secure login page asking for Email or Phome number");
 		}
 
 	}

@@ -10,6 +10,8 @@ import pageobjects.ObjectLocator;
 public enum CartPageObjects {
 	dropDown("select[class='a-native-dropdown']", CSS),
 	addToCartBtn("//input[@id='add-to-cart-button']",XPATH),
+	proceedToCheckout("a[class='hucSprite s_checkout hlb-checkout-button']",CSS),
+	lblEmailAddressAndPhoneNumber("//label[contains(text(),'E-mail address or mobile phone number')]",XPATH),
 	lnkAddToOrder("div[class='addToOrderButton']",CSS);
 	String strProperty = "";
 	ObjectLocator locatorType = null;
