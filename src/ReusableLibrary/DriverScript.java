@@ -18,6 +18,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public abstract class DriverScript {
 
+
 	public WebDriver driver = null;
 	public ExtentReports extent = null;
 	public ExtentTest logger = null;
@@ -47,13 +48,26 @@ public abstract class DriverScript {
 	}
 
 	private WebDriver initializeWebDriver() {
+		String RunningMode = null;
+		
+		RunningMode =getValueFromProperyFile("ExecutionMode");
+		
+		switch(RunningMode){
+		case "Local":
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
 
-		System.setProperty("webdriver.chrome.driver",
-				System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			break;
+		case "Grid":
+			
+			break;
+		default:
+			logger.log(LogStatus.ERROR, "Execution Mode Not selected properly")	;
+	}
 
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return driver;
 
 	}
@@ -83,8 +97,9 @@ public abstract class DriverScript {
 			url = getValueFromProperyFile("URL");
 			driver.get(url);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			logger.log(LogStatus.WARNING, e.toString());
+			
 		}
 	}
 
