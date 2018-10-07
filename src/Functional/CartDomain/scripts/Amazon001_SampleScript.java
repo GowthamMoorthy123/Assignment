@@ -1,5 +1,6 @@
 package Functional.CartDomain.scripts;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.ExtentTest;
@@ -10,10 +11,12 @@ import Functional.CartDomain.pages.HomePage;
 
 import ReusableLibrary.DriverScript;
 
+@Listeners (Helper.listeners.class)
 public class Amazon001_SampleScript extends DriverScript {
 	HomePage homepage;
 	DepartmentPage departmentpage;
 	CartPage cartpage;
+
 
 	@Test
 	public void runTest() {

@@ -11,7 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.mongodb.diagnostics.logging.Logger;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -62,6 +64,10 @@ public abstract class DriverScript {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			break;
 		case "Grid":
+			if(getValueFromProperyFile("SauceLabsExecution").equalsIgnoreCase("true"))
+					{
+				
+					}
 			
 			break;
 		default:
@@ -88,6 +94,7 @@ public abstract class DriverScript {
 		extent = new ExtentReports(System.getProperty("user.dir")
 				+ "/test-output/ExtentReport/ExtReport.html", true);
 		logger = extent.startTest("Amazon Testcase");
+		
 		return logger;
 	}
 
@@ -133,6 +140,30 @@ public abstract class DriverScript {
 
 		}
 		return value;
+	}
+	
+	public  DesiredCapabilities getCapabilities(String browser){
+		DesiredCapabilities capabilities = null;
+		switch(browser){
+			case "CHROME":
+				capabilities = DesiredCapabilities.chrome();
+				capabilities.setBrowserName("chrome");
+				break;
+
+			case "FIREFOX":
+				capabilities = DesiredCapabilities.firefox();
+				capabilities.setBrowserName("firefox");
+				break;
+			
+			case "IE":
+				capabilities = DesiredCapabilities.internetExplorer();
+				capabilities.setCapability("browserName", "internet explorer");				
+				break;
+			default:
+				logger.log(LogStatus.ERROR, "Select correct Browser");
+				
+		}
+		return capabilities;
 	}
 
 }
