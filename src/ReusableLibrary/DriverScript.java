@@ -148,7 +148,7 @@ public abstract class DriverScript {
 		String value = null;
 		try {
 			reader = new FileReader(System.getProperty("user.dir")
-					+ "/PropertyFiles/CommonSettings.properties");
+					+ "/propertyFiles/CommonSettings.properties");
 			Properties p = new Properties();
 			p.load(reader);
 			value = p.getProperty(Input);
@@ -191,13 +191,13 @@ public abstract class DriverScript {
 		case "Chrome":
 			System.setProperty("webdriver.chrome.driver",
 					System.getProperty("user.dir")
-							+ "/Drivers/chromedriver.exe");
+							+ "/drivers/chromedriver.exe");
 			driver = new ChromeDriver();
 			break;
 		case "IE":
 			System.setProperty("webdriver.ie.driver",
 					System.getProperty("user.dir")
-							+ "/Drivers/IEDriverServer.exe");
+							+ "/drivers/IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 			break;
 
