@@ -78,7 +78,14 @@ public abstract class DriverScript {
 					logger.log(LogStatus.ERROR, e.toString());
 				}
 			} else {
-
+				String RemoteURL = "http://(NodeIpAddress:portNumber/wd/hub";
+				DesiredCapabilities capability = getCapabilities(getValueFromProperyFile("Browser"));
+				try {
+					driver = new RemoteWebDriver(new URL(RemoteURL), capability);
+				} catch (MalformedURLException e) {
+					System.out.println(e.toString());
+					logger.log(LogStatus.ERROR, e.toString());
+				}
 			}
 
 			break;
