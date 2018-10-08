@@ -12,7 +12,10 @@ import Functional.CartDomain.pageobjects.DepartmentPageObjects;
 import Functional.CartDomain.pageobjects.HomePageObjects;
 import ReusableLibrary.DriverScript;
 
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage extends DriverScript {
 
@@ -32,6 +35,7 @@ public class CartPage extends DriverScript {
 					.getLocatorType().toString());
 
 		} catch (Exception e) {
+			System.out.println("Element not loading");
 			logger.log(LogStatus.FAIL, "Element not found in DOM");
 			return null;
 		}
@@ -115,6 +119,7 @@ public class CartPage extends DriverScript {
 	public void clickProceedToCheckout() {
 
 		WebElement elment = getPageElement(CartPageObjects.proceedToCheckout);
+		waitForElementToLoad(elment);
 		if (elment.isDisplayed()) {
 			elment.click();
 			logger.log(LogStatus.PASS,
@@ -139,13 +144,32 @@ public class CartPage extends DriverScript {
 	}
 
 	public void cickExitPopUpFromSuggestedProducts() {
-		WebElement elment = getPageElement(CartPageObjects.popUpClose);
-		if (elment.isDisplayed()) {
-			elment.click();
-			logger.log(LogStatus.PASS, "Pop up close link found and clicked");
-		} else {
-			logger.log(LogStatus.FAIL, "Pop up close link not found");
+		try {
+			Thread.sleep(5);
+			WebElement elment = getPageElement(CartPageObjects.popUpClose);
+			waitForElementToLoad(elment);
+			if (elment.isDisplayed()) {
+				elment.click();
+				logger.log(LogStatus.PASS, "Pop up close link found and clicked");
+			} else {
+				logger.log(LogStatus.FAIL, "Pop up close link not found");
 
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.log(LogStatus.WARNING, e.toString());
+			//e.printStackTrace();
+		}
+	}
+	
+	public void waitForElementToLoad(WebElement element)
+	{
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.visibilityOf(element));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.log(LogStatus.WARNING, e.toString());
 		}
 	}
 

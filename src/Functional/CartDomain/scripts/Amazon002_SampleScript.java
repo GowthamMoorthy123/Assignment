@@ -12,7 +12,7 @@ import Functional.CartDomain.pages.HomePage;
 import ReusableLibrary.DriverScript;
 
 @Listeners(Helper.listeners.class)
-public class Amazon001_SampleScript extends DriverScript {
+public class Amazon002_SampleScript extends DriverScript {
 	HomePage homepage;
 	DepartmentPage departmentpage;
 	CartPage cartpage;
