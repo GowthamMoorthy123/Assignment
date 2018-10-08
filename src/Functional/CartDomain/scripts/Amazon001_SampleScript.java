@@ -1,6 +1,7 @@
 package Functional.CartDomain.scripts;
 
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.ExtentTest;
@@ -16,10 +17,11 @@ public class Amazon001_SampleScript extends DriverScript {
 	HomePage homepage;
 	DepartmentPage departmentpage;
 	CartPage cartpage;
+	@Parameters("browser")
 
 	@Test
-	public void runTest() {
-		driveTestExecution();
+	public void runTest(String browser) {
+		driveTestExecution(browser);
 
 	}
 

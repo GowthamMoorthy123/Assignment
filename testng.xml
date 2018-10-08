@@ -2,11 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="Suite" parallel="tests">
   <test name="Test1">
-    <classes>
+  <parameter name="browser" value="Chrome" />
+    <classes>    
       <class name="Functional.CartDomain.scripts.Amazon001_SampleScript"/>
     </classes>
   </test> <!-- Test -->
   <test name="Test2">
+  <parameter name="browser" value="Chrome" />
     <classes>
       <class name="Functional.CartDomain.scripts.Amazon002_SampleScript"/>
     </classes>

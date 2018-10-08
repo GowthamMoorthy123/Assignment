@@ -41,8 +41,8 @@ public abstract class DriverScript {
 
 	}
 
-	public void driveTestExecution() {
-		driver = initializeWebDriver();
+	public void driveTestExecution(String browser) {
+		driver = initializeWebDriver(browser);
 		logger = initializeTestReport();
 		setUp();
 		executeTestCase(logger);		
@@ -50,7 +50,7 @@ public abstract class DriverScript {
 		quitWebDriver();
 	}
 
-	private WebDriver initializeWebDriver() {
+	private WebDriver initializeWebDriver(String browser) {
 		String RunningMode = null;
 
 		RunningMode = getValueFromProperyFile("ExecutionMode");
@@ -58,7 +58,8 @@ public abstract class DriverScript {
 		switch (RunningMode) {
 		case "Local":
 
-			driver = getDriver(getValueFromProperyFile("Browser"));
+			//driver = getDriver(getValueFromProperyFile("Browser"));
+			driver = getDriver(browser);
 			/*
 			 * System.setProperty("webdriver.chrome.driver",
 			 * System.getProperty("user.dir") + "/Drivers/chromedriver.exe");
